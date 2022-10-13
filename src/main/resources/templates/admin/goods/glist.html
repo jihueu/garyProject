@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout-admin :: layout(~{::head},~{::main})}">
+<head>
+</head>
+<main>
+	<h1>상품리스트페이지</h1>
+	<div class="wrap">
+		<section id="goods-reg">
+			<div class="wrap">
+				<p>상품리스트</p>
+			<table>
+				<thead>
+					<tr>
+						<td>대표이미지</td>
+						<td>상품이름</td>
+						<td>가격</td>
+						<td>할인가(할인율)</td>
+						<td>재고수량</td>
+						<td>관리</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="dto:${glist}" class="item">
+						<td>
+							<input type="hidden" class="goodsNo"  th:value="${dto.goodsNo}">
+							<img alt="대표이미지" th:src="${dto.defImgUrl}" height="100px">
+						</td>
+						<td><input id="goodsName" class="goodsName" type="text" th:value="${dto.goodsName}" readonly><!-- 수정 전송 불가 이벤트 직접적저용불가 우회적용 --></td>
+						<td><input id="price" class="price" type="text" th:value="${dto.price}" readonly><!-- 수정 전송 불가 이벤트 직접적저용불가 우회적용 --></td>
+						<td><input id="sale" class="sale" type="text" th:value="${dto.sale}" disabled><!-- 수정불가 전송 이벤트 적용가능 --></td>
+						<td><input id="stock" class="stock" type="text" th:value="${dto.stock}" readonly><!-- 수정불가 전송 이벤트 적용가능 --></td>
+						<td>
+							<button type="button" class="btn-del">삭제</button>
+						</td>			
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</section>
+		<script type="text/javascript">
+		
+			$(function(){
+							
+				$(".price,.stock,.goodsName").focus(function(){
+					$(this).removeAttr("readonly");
+				});
+				
+				$(".price,.stock,.goodsName").blur(function(){
+					$(this).attr("readonly",true);
+				});
+				
+				
+				$(".price, .stock, .goodsName").change(function(){
+					var vno = $(this).parents(".item").find(".vno").text();
+					var stock = $(this).parents(".item").find(".stock").val();
+					var price = $(this).parents(".item").find(".price").val();//$(this).val() 로 읽어도됨 여기만
+					var goodsName = $(this).parents(".item").find(".goodsName").val();//$(this).val() 로 읽어도됨 여기만
+					
+					var token = $("meta[name='_csrf']").attr("content");
+	    			var header = $("meta[name='_csrf_header']").attr("content");
+	    			
+					$.ajax({
+						beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+						url:"/common/goods/"+vno,
+						type:"put",
+						data:{price:price, stock:stock, goodsName:goodsName}, //{파라미터네임:변수}
+						success: function(result){
+							if(result){
+								alert("수정완료");
+							}
+						}
+					});
+					
+				}); 
+				
+											
+				$(".btn-del").click(function(){
+					var r=confirm("삭제하시겠습니까?");
+					if(!r)return;//종료해라
+					var gno=$(this).parents("tr").find(".goodsNo").val();//반복문안에 있는 [[dto.vno]]는 특정값을 선택하지 못함 그래서 경유해서 선택해야함	
+					var token = $("meta[name='_csrf']").attr("content");
+	    			var header = $("meta[name='_csrf_header']").attr("content");
+					$.ajax({
+						beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+						url:"/goods/glist/"+gno,
+						type:"delete",//ajax는 data조건 안주고 typd에서 delete로도 바로 보낼수 있다.
+						success:function(){
+						location="/admin/glist";
+						},error:function(){
+							alert("실패");
+						}
+					});
+						
+				});
+				
+			})
+			
+		</script>
+	</div>
+</main>
+</html>

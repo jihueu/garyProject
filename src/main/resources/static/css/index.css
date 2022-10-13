@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/* //////비주얼이미지////////////// */
+
+#visual{
+	background-color: black;
+}
+#visual .area{
+	padding: 30px 0;
+	margin: 0 auto;
+	overflow: hidden;
+	width: 1100px;
+	 
+}
+#visual>.area .vwrap .vimg>a{
+	
+	display: block;
+	display: flex;
+	width: 100%;
+	color: #fff;
+	height: 600px;
+	background-repeat:no-repeat;
+	background-size: contain;
+	background-position: center;
+	flex-direction: column;
+	justify-content: center;
+	
+}
+#visual>.area .vwrap .vimg>a .text{
+	display: block;
+	width: 100%;
+}
+#visual>.area .vwrap .vimg>a .text .title{
+	display:block;
+	padding-left:30px;
+	font-size: 38px;
+	text-shadow: 2px 2px 4px #000000;
+}
+#visual>.area .vwrap .vimg .bg .text .sub{
+	padding-left:30px;
+	display: block;
+	font-size: 18px;
+	text-shadow: 2px 2px 4px #000000;
+	margin-top: 18px;
+}
+/* //////전시회포스터////////////// */
+#visual>.ewrap{
+	padding:10px 0;
+	background: #3a3a3a;
+}
+#visual>.ewrap .e-box{
+	
+	margin: 20px auto;
+	width: 1100px;
+}
+#visual .ewrap .e-box .eimg{
+	display:block;
+	width: 240px;
+	color: white;
+}
+#visual>.ewrap .e-box .eimg .eimg-bg:hover{
+	border: 5px solid red;
+	cursor: pointer;
+}
+#visual .ewrap .e-box .eimg>a{
+	display: block;
+	width: 240px;
+	height: 300px;
+	background-repeat:no-repeat;
+	background-size: cover;
+	background-position: center;
+	position: relative;
+	border: 5px solid black;
+}
+#visual .ewrap .e-box .eimg>span .sub{
+	display:block;
+	padding:5px 0;
+	width:100%;
+	text-align: center;
+	font-size: 18px;
+	color: white;
+}
+#visual .ewrap .e-box .eimg .eimg-bg span{
+	position: absolute;
+	display: block;
+	width: 100%;
+	padding: 5px 0;
+	font-size: 15px;
+	color: #fff;
+	text-align: center;
+	background-color: rgba(0,0,0,.6);
+	left: 0;
+	bottom:0;
+}
+
+.grid-container {
+	padding-top: 10px;
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 15px;
+}

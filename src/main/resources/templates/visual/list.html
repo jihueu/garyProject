@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<div class="area">
+<ul class="vwrap flex">
+	<!-- for(VisualListDTO dto : list){} -->
+	<li class="vimg" th:each="dto:${vlist}">
+		<a href="${dto.link}" class="bg" th:style="|background-image: url(${dto.url+dto.orgName});|">
+			<span class="text view-size">
+				<b class="title">[[${dto.mtitle}]]</b>
+				<span class="sub">[[${dto.stitle}]]</span>
+			</span>
+		</a>
+	</li>
+</ul>
+</div>
+
+<div class="ewrap" >
+<ul class="flex between e-box grid-container">
+	<!-- for(VisualListDTO dto : list){} -->
+	<li class="eimg" th:each="dto:${elist}">
+		<a href="${dto.link}" class="eimg-bg" th:style="|background-image: url(${dto.url+dto.orgName});|">
+			<span>[[${dto.mtitle}]]</span>
+		</a>
+		<span class="eimg-text">
+			<span class="sub">[[${dto.stitle}]]</span>
+		</span>
+	</li>
+</ul>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	visualResize();
+	//브라우저크기 조정
+	/* $(window).resize(function(){
+		visualResize();
+	}); */
+	
+	//화면최소화시 타이머 정지
+	document.addEventListener("visibilitychange", function() {
+		console.log(document.visibilityState);
+		var state=document.visibilityState;
+		if(state=="hidden"){
+			stop();
+		}else if(state=="visible"){
+		myTimeout = setTimeout(start, 2000);
+			
+		}
+	});
+	//마우스오버시 타이머 정지
+	$(".area").hover(stop, function(){
+		myTimeout = setTimeout(start, 5000);
+	});
+	myTimeout = setTimeout(start, 2000);
+
+});
+
+
+var speed = 1500;
+function stop(){
+	clearTimeout(myTimeout);
+	console.log("애니메이션정지");
+}
+
+function start(){
+	next();
+	myTimeout = setTimeout(start, 3000);
+	console.log("애니메이션시작");
+}
+
+function next(){
+	var first=$(".vimg:first-child");
+	var last=$(".vimg:last-child");
+	/* $(".vwrap").css("margin-left", "-100%"); */
+	/* 애니메이트속성은 카멜로 표기 */	
+	$(".vwrap").animate({marginLeft:"-100%"},speed,function(){
+		last.after(first);//첫번째이미지 -> 맨뒤로 보내기
+		$(".vwrap").css("margin-left", 0);
+	});
+}
+function visualResize(){
+		//var wow= window.innerWidth;
+		var wow=$("#visual .area").width();
+		var imgs=$(".vimg");
+		console.log(imgs.length);
+		console.log(wow);
+		$(".vwrap").css("width",wow*imgs.length);
+		$(".vimg").css("width",wow);//이미지1장의 크기설정
+		/* $(".area").css("width",wow);//화면영역 */
+}
+</script>
+</html>

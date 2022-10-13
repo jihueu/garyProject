@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout-admin :: layout(~{::head},~{::main})}">
+<head>
+<link rel="stylesheet" href="/css/index.css">
+</head>
+<main>
+	<h1>비주얼이미지 등록</h1>
+	<div class="wrap">
+		<p>비주얼이미지등록</p>
+		<!-- form형으로 파일을 업로드설정할때 enctype="multipart/form-data" 설정 필수 -->
+		<form action="/admin/visuals" method="post" enctype="multipart/form-data">
+			<ul>
+			<li><input type="file" name="vimg"></li>
+			<li><input type="text" name="mtitle"></li>
+			<li><input type="text" name="stitle"></li>
+			<li><input type="text" name="link"></li>
+			<li>
+			<input type="hidden" th:name="${_csrf.parameterName}"  th:value="${_csrf.token}" >
+			<button type="submit">등록</button>
+			</li>
+			
+			</ul>
+		</form>
+	</div>
+</main>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+th:fragment="layout(head, main)">
+<head>
+	<!-- thymleaf에서 8.5 doc에서 복사해옴 -->
+    <title>JH_Ticket</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel ="shortcut icon" href="/images/icon/faviconStar.png">
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" src="/js/weather.js"></script>
+	
+	<!-- 공통적용할 css -->
+	<link rel="stylesheet" href="/css/common/reset.css">
+	<link rel="stylesheet" href="/css/common/common.css">
+	<link rel="stylesheet" href="/css/common/header.css">
+	<link rel="stylesheet" href="/css/common/footer.css">
+
+	<th:block th:replace="${head}">페이지에서 설정한 head값</th:block>
+</head>
+<body>
+   <header>
+   		<h1>헤더영역</h1>
+		<div class="wrap">
+			<!-- ////헤더상단 왼쪽///////////////////////////////////////////// -->
+			<section id="htl">
+				<h1>헤더상단</h1>
+				<div class="wrap flex between vs">
+					<!-- ////헤더상단 ///////////////////////////////////////////// -->
+					<section >
+						<h1>헤더상단</h1>
+						<div class="wrap">
+							<ul class="flex htBar">
+								<li><a href="#">기획전</a></li>
+								<li><a href="/boards">게시판</a></li>
+							</ul>
+						</div>
+					</section>
+					<!-- ////헤더상단 오른쪽///////////////////////////////////////////// -->
+					<section id="htr">
+						<h1>헤더상단오른쪽</h1>
+						<div class="wrap">
+							<ul class="flex htBar">
+								<li sec:authorize="isAnonymous()">
+								<a href="/loginPage">로그인</a>
+								<a href="/common/signup">회원가입</a>
+								</li>
+								<li sec:authorize="isAuthenticated()"><span
+									sec:authentication="principal.name"></span>님
+									<button id="btn-logout">로그아웃</button>
+								</li>
+								<li>
+									<span id="temp"></span>
+									<span>℃</span>
+									<span id="wIcon"></span>
+								</li>
+								<li><a href="#">예약 확인/취소</a></li>
+								<li><a href="/common/customer">고객센터</a></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')">
+									<a href="/admin/home">관리자홈</a>
+								</li>
+								<li><a href="#">English</a></li>
+							</ul>
+						</div>
+					</section>
+					<script type="text/javascript">
+						$(function() {
+							$("#btn-logout").click(
+								function() {
+									var token = $("meta[name='_csrf']").attr("content");
+									var header = $("meta[name='_csrf_header']").attr("content");
+									$.ajax({
+										beforeSend : function(xhr) {xhr.setRequestHeader(header,token);},
+										url : "/logout",
+										type : "post",
+										success : function() {
+											location.href = "/";
+									}
+								});
+							});
+						});
+					</script>
+				</div>
+			</section>
+			</div>
+	</header>
+   <!-- 헤더영역 -끝-////////////////////////////////////////// -->
+   <!-- 메인영역 -시작-////////////////////////////////////////// -->
+   <main th:replace="${main}">
+   	메인섹션이 삽입되는곳
+   	
+   </main>
+   <!-- 메인영역 -끝- ////////////////////////////////////////// -->
+   <footer class="footer">
+   	<div class="copyright">
+   		Copyright ©GARY Corp. All Rights Reserved.
+   	</div>
+   </footer>
+   
+</body>
+</html>

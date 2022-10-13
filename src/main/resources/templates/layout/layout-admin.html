@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+th:fragment="layout(head, main)">
+
+<head>
+	<!-- thymleaf에서 8.5 doc에서 복사해옴 -->
+    <title>JH_Ticket</title>
+    <link rel ="shortcut icon" href="/images/icon/faviconStar.png">
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+	<!-- 공통적용할 css -->
+	<link rel="stylesheet" href="/css/common/reset.css">
+	<link rel="stylesheet" href="/css/common/common.css">
+	<link rel="stylesheet" href="/css/admin/layout-admin.css">
+	<!-- summernote css/js -->
+	<th:block th:replace="${head}">페이지에서 설정한 head값</th:block>
+</head>
+<body class="flex" >
+	<header >
+   	<h1>메뉴</h1>
+   	<div class="wrap ">
+		<dl> 
+			<dt>메인 슬라이드광고</dt>
+			<dd><a href="/admin/visuals">광고리스트관리</a></dd>
+			<dd><a href="/admin/visuals/write">광고등록하기</a></dd>
+		</dl>   	
+		<dl> 
+			<dt>전시회관리</dt>
+			<dd><a href="/admin/elist">전시회리스트관리</a></dd>
+			<dd><a href="/admin/ewrite">전시회등록하기</a></dd>
+		</dl>   	
+		<dl> 
+			<dt>GOODS상품등록</dt>
+			<dd><a href="/admin/glist">상품리스트</a></dd>
+			<dd><a href="/admin/gwrite">상품등록하기</a></dd>
+		</dl>   	
+		<dl> 
+			<dt>FAQ관리</dt>
+			<dd><a href="#">FAQ리스트</a></dd>
+			<dd><a href="#">FAQ등록하기</a></dd>
+		</dl>   	
+	   	<div id="top">
+ 			<a href="/admin/home">관리자홈</a>
+ 		</div>
+ 		<div id="bottom">
+ 			<a href="/">홈페이지이동</a>
+ 		</div>
+	</div> 
+   </header>
+   <!-- 헤더영역 -끝-////////////////////////////////////////// -->
+   <!-- 메인영역 -시작-////////////////////////////////////////// -->
+   <main th:replace="${main}">
+   	메인섹션이 삽입되는곳
+   	
+   
+   </main>
+   <!-- 메인영역 -끝- ////////////////////////////////////////// -->
+   
+</body>
+</html>

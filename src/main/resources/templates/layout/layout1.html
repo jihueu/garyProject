@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+th:fragment="layout(head, main)">
+<head>
+	<!-- thymeleaf에서 8.5 doc에서 복사해옴 -->
+    <title>JH_Ticket</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+	<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel ="shortcut icon" href="/images/icon/faviconStar.png">
+	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" src="/js/weather.js"></script>
+	
+	<!-- 공통적용할 css -->
+	<link rel="stylesheet" href="/css/common/reset.css">
+	<link rel="stylesheet" href="/css/common/common.css">
+	<link rel="stylesheet" href="/css/common/header.css">
+	<link rel="stylesheet" href="/css/common/footer.css">
+
+	<th:block th:replace="${head}">페이지에서 설정한 head값</th:block>
+</head>
+<body>
+   <header>
+   		<h1>헤더영역</h1>
+		<div class="wrap">
+			<!-- ////헤더상단 왼쪽///////////////////////////////////////////// -->
+			<section id="htl">
+				<h1>헤더상단</h1>
+				<div class="wrap flex between vs">
+					<!-- ////헤더상단 ///////////////////////////////////////////// -->
+					<section >
+						<h1>헤더상단</h1>
+						<div class="wrap">
+							<ul class="flex htBar">
+								<li><a href="#">기획전</a></li>
+								<li><a href="/boards">게시판</a></li>
+							</ul>
+						</div>
+					</section>
+					<!-- ////헤더상단 오른쪽///////////////////////////////////////////// -->
+					<section id="htr">
+						<h1>헤더상단오른쪽</h1>
+						<div class="wrap">
+							<ul class="flex htBar">
+								<li sec:authorize="isAnonymous()">
+								<a href="/loginPage">로그인</a>
+								<a href="/common/signup">회원가입</a>
+								</li>
+								<li sec:authorize="isAuthenticated()"><span
+									sec:authentication="principal.name"></span>님
+									<button id="btn-logout">로그아웃</button>
+								</li>
+								<li>
+									<span id="temp"></span>
+									<span>℃</span>
+									<span id="wIcon"></span>
+								</li>
+								<li><a href="#">예약 확인/취소</a></li>
+								<li><a href="/common/customer">고객센터</a></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')">
+									<a href="/admin/home">관리자홈</a>
+								</li>
+								<li><a href="#">English</a></li>
+							</ul>
+						</div>
+					</section>
+					<script type="text/javascript">
+						$(function() {
+							$("#btn-logout").click(
+								function() {
+									var token = $("meta[name='_csrf']").attr("content");
+									var header = $("meta[name='_csrf_header']").attr("content");
+									$.ajax({
+										beforeSend : function(xhr) {xhr.setRequestHeader(header,token);},
+										url : "/logout",
+										type : "post",
+										success : function() {
+											location.href = "/";
+									}
+								});
+							});
+						});
+					</script>
+				</div>
+			</section>
+			<!-- ////헤더 로고//////////////////////////// -->
+			<section id="hclogo">
+				<h1>헤더중간</h1>
+				<div class="wrap flex between vs">
+					<div class="wrap">
+						<a class="imgLogo" href="/"></a>
+					</div>
+					<div class="searchdiv">
+						<!-- <form class="search-form" method="post">
+							<input type="search" placeholder="search">
+							<a class="search-img" href=""></a>
+						</form> -->
+					</div>
+				</div>
+			</section>
+			</div>
+			<!-- ////헤더하단///////////////////////////////// -->
+			<section id="hbMenu">
+				<h1>헤더하단</h1>
+				<div class="wrap">
+					<ul class="flex between vs">
+						<!-- <li><a href="#">예매</a></li> -->
+						<li><a href="/common/elistpage">전시회</a></li>
+						<li><a href="/common/location">전시관위치</a></li>
+						<li><a href="/common/goodspage">GOODS</a>
+							<ul>
+								<li><a href="/common/category/1100/goods">작가</a></li>
+								<li><a href="/common/category/1200/goods">수제품</a></li>
+								<li><a href="/common/category/1300/goods">선물용</a></li>
+								<li><a href="/common/category/1400/goods">재료</a></li>
+								<li><a href="/common/category/1900/goods">시즌상품</a></li>
+								<li><a href="/common/category/2000/goods">기획상품</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</section>
+	</header>
+   <!-- 헤더영역 -끝-////////////////////////////////////////// -->
+   <!-- 메인영역 -시작-////////////////////////////////////////// -->
+   <main th:replace="${main}">
+   	<section>
+   	
+   	</section>
+   	<section>
+   	
+   	</section>
+   </main>
+   <!-- 메인영역 -끝- ////////////////////////////////////////// -->
+   <!-- 푸터영역 -시작- ////////////////////////////////////////// -->
+   <footer class="footer">
+   		<h1>하단영역</h1>
+   		<div>
+			<section id="fwrap">
+				<h1>회사정보</h1>
+				<div class="wrap vs">
+					<div class="wrap fBar">
+						<ul class="flex between">
+							<li><a href="#">JHTIKET소개</a></li>
+							<li><a href="#">개인정보</a></li>
+							<li><a href="#">청소년보호정책</a></li>
+							<li><a href="#">티켓판매안내</a></li>
+							<li><a href="#">고객센터</a></li>
+							<li><a href="#">채용공고</a></li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<div class="wrap">
+			<section id="fbottom">
+				<p class="copyright">Copyright ©GARY Corp. All Rights Reserved.</p>
+				<div class="wrap vs snsLink">
+					<h1>SNSlink</h1>
+					<a href="#"> <img alt="#"
+						src="/images/imgSns/w_footer_fb.png">
+					</a> <a href="#"> <img alt="#"
+						src="/images/imgSns/w_footer_is.png">
+					</a> <a href="#"> <img alt="#"
+						src="/images/imgSns/w_footer_nb.png">
+					</a> <a href="#"> <img alt="#"
+						src="/images/imgSns/w_footer_ut.png">
+					</a>
+				</div>
+			</section>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

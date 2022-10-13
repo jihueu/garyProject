@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<table>
+	<tr th:each="dto:${list}">
+		<td th:text="${dto.rno}">댓글번호</td>
+		<td th:text="${dto.text}">댓글내용</td>
+		<td>
+			<span th:text="${dto.replier}">작성자</span>
+			<span th:text="${dto.updatedDate}">작성일</span>
+		</td>
+	</tr>
+	<tr th:if="${#lists.isEmpty(list)}">
+		<td colspan="3">댓글이 존재하지 않습니다.</td>
+	</tr>
+</table>
+</html>

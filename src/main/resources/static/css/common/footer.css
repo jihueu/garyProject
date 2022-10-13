@@ -1,0 +1,39 @@
+@charset "UTF-8";
+footer {
+    background: #e4e4e4;
+}
+.snsLink{
+	display: block;
+	top: 88px;
+    right: 0px;
+    text-align: right;
+}
+.copyright{
+	padding: 0;
+    line-height: 80px;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+}
+.footer div .wrap{
+	padding-top: 10px;
+}
+
+#fwrap div ul li:last-child{
+	text-align:center;
+	width:100%;
+	margin:0 auto;
+  
+}
+#fwrap div ul li:not(:last-child){
+	text-align:center;
+	width:100%;
+	margin:0 auto;
+    border-right: 1px solid #ffffff;
+    vertical-align: middle;
+}
+#fwrap div ul li a{
+
+	color: #585858;
+}
+

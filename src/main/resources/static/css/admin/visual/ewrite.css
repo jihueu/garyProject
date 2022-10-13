@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+label{
+	display:inline;
+	font-weight: 600;
+}
+
+main>.wrap{
+	margin-left: 20px; 
+	height: 600px;
+}
+
+main>.wrap form {
+	border: 3px solid #e9e9e9;
+	width: 450px;
+}
+main>.wrap form ul li>label{
+	color:#414141;
+}
+main>.wrap form ul{
+	padding: 25px 0;
+}
+main>.wrap form ul li{
+	width: 90%;
+	margin: 5px auto;
+}
+
+main>.wrap form ul li input:focus {
+	outline:2px solid #c0c0c0;}
+
+main>.wrap form ul li input{
+	width: 100%;
+	height: 40px;
+	padding: 10px 0;
+	margin: 5px auto;
+	border-width: .5;
+	border-color: #e9e9e9;
+}
+
+.btn{
+	background-color: black;
+	width:120px;
+	height:40px;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	border-radius: 10px;
+}

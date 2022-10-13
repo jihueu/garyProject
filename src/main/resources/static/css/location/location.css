@@ -1,0 +1,21 @@
+@charset "UTF-8";
+main>.wrap{
+	width: 1024px;
+	margin: 80px auto;
+}
+
+main>.wrap .ifwrap div{
+	padding-left: 30px;
+}
+main>.wrap .ifwrap div dt{
+	
+	font-size: 20px;
+	font-weight: 600;
+	
+}
+main>.wrap .ifwrap div dl *{
+	margin: 25px 0;
+}
+#map{
+	border: 1px solid rgba(0,0,0,0.2);
+}

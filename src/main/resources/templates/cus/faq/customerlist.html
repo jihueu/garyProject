@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<ul class="title">
+	<li class="flex">
+		<span class="t1">구분</span>
+		<span class="t2">질문</span>
+	</li>
+</ul>
+<dl class="list" th:each="dto :${clist}">
+	<dt class="flex">
+		<span class="t1">[[${dto.div.title}]]</span>
+		<span class="t2">[[${dto.question}]]</span>
+	</dt>
+	<dd>[[${dto.answer}]]</dd>
+</dl>
+<script type="text/javascript">
+	$(".list").click(function(){
+		$(".list").not(this).find("dd").slideUp(200);
+		$(this).find("dd").slideToggle(200);
+	});
+</script>
+</html>

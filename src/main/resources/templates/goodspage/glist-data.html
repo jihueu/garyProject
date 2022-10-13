@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<ul class="grid-container" >
+	<li th:each="dto : ${glist}" >
+		<ol>
+			<li >
+				<a th:href="|/common/goods/${dto.goodsNo}|">
+					<img alt="대표이미지" th:src="${dto.defImgUrl}" />
+				</a>
+			</li>
+			<li id="goodsName">[[${dto.goodsName}]]</li>
+			<li id="goodsPrice">[[${dto.price}]]</li>
+			<li th:if="${dto.sale}>0" th:text="${dto.sale}"></li>
+			<li>재고수량 : [[${dto.stock}]]</li>
+		</ol>
+	</li>
+</ul>
+<div>
+	<span sec:authorize="isAuthenticated()">
+	<input type="hidden" id="buyerEmail" th:value="${#authentication.principal.email}">
+	<input type="hidden" id="buyerName" th:value="${#authentication.principal.name}">
+	</span>
+	<button id="btn-payment" class="btn">구매하기</button>
+</div>
+
+</html>

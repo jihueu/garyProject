@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout1 :: layout(~{::head},~{::main})}">
+<head>
+<link rel ="shortcut icon" href="/images/icon/faviconStar.png">
+</head>
+<body>
+	<h1>게시판2</h1>
+	<main>
+	<div>
+	<p th:if="${session.logInfo}"><a href="/jpaboard/write">글쓰기</a></p>
+	<table>
+		<thead>
+			<tr>
+				<th>글번호</th>
+				<th>제목</th>
+				<th>조회수</th>
+				<th>수정일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="dto:${list}">
+				<td th:text="${dto.no}">글번호</td>
+				<td><a th:href="|/jpaboard/${dto.no}|">[[${dto.title }]]</a></td>
+				<td th:text="${dto.readCount}">조회수</td>
+				<td th:text="${dto.updatedDate}">수정일</td>
+			</tr>
+			<tr th:if=${#lists.isEmpty(list)}>
+				<td colspan="5">게시글이 존재하시 않습니다.</td>
+			</tr>	
+		</tbody>
+	</table>
+		<div th:if=${!#lists.isEmpty(list)}> <!-- list가 비어있지않으면 -->
+			<a th:if="${pi.start > 1 }" th:href="|/jpaboard?pageNo=${pi.start-1}|">
+				<button type="button">&lt;</button>
+			</a>
+			<a th:each="pno:${#numbers.sequence(pi.start,pi.end)}" th:href="|/jpaboard?pageNo=${pno}|">
+				<button type="button">[[${pno}]]</button>
+			</a>
+			<a th:if="${pi.end < pi.tot}" th:href="|/jpaboard?pageNo=${pi.end+1}|">
+				<button type="button">&gt;</button>
+			</a>
+		</div>
+	</div>
+	</main>
+</body>
+</html>

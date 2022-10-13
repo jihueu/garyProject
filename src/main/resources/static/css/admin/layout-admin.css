@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+header{
+	margin: 0;
+}
+header>.wrap{
+	width: 210px;
+	min-height: 100vh;
+}	
+header>.wrap>div{
+	text-align:inherit;
+	padding:20px;
+	height: 30px;
+	line-height: 28px;
+}
+
+header>.wrap>div a:hover{
+	font-size: 18px;
+	font-weight: 600;
+	color: purple;
+}
+header>.wrap>div a{
+	color: #000000;
+	font-size: 17px;
+}
+
+header>.wrap dl{
+	padding: 20px 20px 30px;
+	border-bottom: 3px dotted #000;
+}
+header>.wrap dl dt{
+	font-weight: bold;
+	padding: 0 0 1em;
+	font-size: 20px;
+}
+header>.wrap dl dd>a:hover {
+	font-weight: 600;
+	color: black;
+}
+header>.wrap dl dd {
+	padding-bottom: 5px;
+}
+main{
+	padding: 40px 0 0 50px;
+}
+
+main>.wrap p {
+	color:#414141;
+	font-size: 30px;
+	margin: 20px 0 20px 10px;
+}
+
+main>.wrap section .wrap>p {
+	color:#414141;
+	font-size: 30px;
+	margin: 20px 0 40px 10px;
+}
+/* glist_CSS */
+table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+  }
+.vno{
+	display: none;
+} 
+.btn-del{
+	background-color: black;
+	width:60px;
+	height:30px;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	border-radius: 10px;
+}

@@ -1,0 +1,154 @@
+@charset "UTF-8";
+@import url("/css/common/common.css");
+
+main> .loginWrap{
+	width:1024px;
+	padding: 100px 0;
+	margin: 0 auto;
+}
+.btn-st{
+	width: 100%;
+	background-color: #000000;
+	color: white;
+	border-radius: 5px;
+	padding: 15px 0;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 20px;
+}
+.error{
+	display: block;
+	margin: 10px auto 0;
+	width:417px;
+	background-color: rgba(0, 0, 0,.5);
+	padding: 1em;
+	text-align: center;
+	color: #ffff80;
+	font-weight: bold;
+}
+body > main > div > .logo{
+	width: 458px;
+	height: 300px;
+}
+.imgLogo{
+	margin: 0 auto;
+	width:225px;
+	height: 100px;
+	display: block;
+	background-size:contain;
+	background-image: url("/images/imgMem/logo300.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+main> .loginWrap .login_tit{
+	text-align: center;	
+}
+
+main>.loginWrap form {
+	width:493px;
+	padding: 20px 28px 10px;
+	border: none;
+	margin: 0 auto;
+}
+
+main>.loginWrap form> div.mar {
+	width : 100%;
+	margin: 0px auto;
+	padding: 15px 0;
+}
+main>.loginWrap form>div{
+	padding: 5px 10px
+}
+main>.loginWrap form>div> input::placeholder {
+  color: #c0c0c0;	
+}
+main>.loginWrap form> div> .ip {
+	margin-top: 10px;
+}
+main>.loginWrap form> div> .ip input:focus {
+	outline:1px solid #696969;}
+main>.loginWrap form> div> .ip input {
+	
+	padding: 17px 17px 16px;
+	width: 100%;
+	border: 1px solid #808080 ;
+	border-radius: 10px 10px;
+	font-size: 20px;
+
+}
+
+
+main>.loginWrap form div>span {
+	box-sizing: border-box;
+	color: #c0c0c0;
+	font-size: 13px;
+	padding: 5px;
+}
+main>.loginWrap form> div.mar label{
+	line-height: 20px;
+	text-align: center;
+	color: #808080;
+	padding-left: 5px;
+}
+
+#remember-me {
+	display: none;
+}
+
+main>.loginWrap form> div.mar label::before {
+	content: "";
+	cursor : pointer;
+	background-image:url("/images/icon/img_order_checkW.png");
+	background-position:center;
+	background-repeat: no-repeat;
+	background-size: 68%;
+	background-color: #c0c0c0;
+	border-radius: 20px;
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	vertical-align: middle;
+
+}
+
+#remember-me:checked + label::before{
+	background-color: black;
+	}
+main>.loginWrap form> div.mar div>a{
+	font-size: 16px;
+	padding: 0 1em;
+	display: inline-block;
+	height: 16px;
+	}
+main>.loginWrap form> div.mar div>a:first-child{
+	border-right: 1px solid #c0c0c0;
+	box-sizing: border-box;
+}
+/*----하단 sns로그인-------------------------------------  */
+.find_inf li {
+	padding: 15px;
+	margin: 0 10px;
+}
+.find_inf li a{
+	text-align: center;
+	display: block;
+}
+.find_inf li a i{
+	display: block; /* 글씨를 아래로 배치 */
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	border: 1px solid black;
+	background-color: white;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-top: 30px;
+	}
+
+.find_inf li:nth-of-type(1) a i{
+	background-image: url("/images/imgSns/sns_kakao.png");}
+.find_inf li:nth-of-type(2) a i{
+	background-image: url("/images/imgSns/sns_naver.png");}
+.find_inf li:nth-of-type(3) a i{
+	background-image: url("/images/imgSns/sns_google.png");}

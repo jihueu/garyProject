@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout-admin :: layout(~{::head},~{::main})}">
+<head>
+<link rel="stylesheet" href="/css/index.css">
+</head>
+<main>
+	<h1>비주얼이미지리스트</h1>
+	<div class="wrap">
+		<p>비주얼 이미지 리스트페이지</p>
+		<table>
+			<thead>
+				<tr>
+					<td>관리번호</td>
+					<td>이미지</td>
+					<td>링크</td>
+					<td>타이틀</td>
+					<td>서브타이틀</td>
+					<td>파일사이즈</td>			
+					<td>적용여부</td>			
+					<td>순서</td>			
+					<td>관리</td>			
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto, i:${vlist}" class="item">
+					<td class="vno">[[${dto.vno}]]</td>
+					<td>
+						<img th:src="${dto.url+dto.orgName}" height="100px">
+					</td>
+					<td><input id="link" class="link" type="text" th:value="${dto.link}" readonly><!-- 수정 전송 불가 이벤트 직접적저용불가 우회적용 --></td>
+					<td><input id="mtitle" class="mtitle" type="text" th:value="${dto.mtitle}" readonly><!-- 수정 전송 불가 이벤트 직접적저용불가 우회적용 --></td>
+					<td><input id="stitle" class="stitle" type="text" th:value="${dto.stitle}" readonly><!-- 수정불가 전송 이벤트 적용가능 --></td>
+					<td>[[${dto.size}]]</td>			
+					<td>
+						<label th:for="|cb-isShow-${i.count}|">적용됨</label>
+						<input th:id="|cb-isShow-${i.count}|" class="cb-isShow" type="checkbox" th:checked="${dto.isShow}">
+					</td>			
+					<td>[[${dto.num}]]</td>			
+					<td>
+						<button type="button" class="btn-del">삭제</button>
+					</td>			
+				</tr>
+			</tbody>
+		</table>
+		<script type="text/javascript">
+		
+			$(function(){
+							
+				$(".mtitle,.stitle,.link").focus(function(){
+					$(this).removeAttr("readonly");
+				});
+				
+				$(".mtitle,.stitle,.link").blur(function(){
+					$(this).attr("readonly",true);
+				});
+				
+				
+				$(".mtitle, .stitle, .link").change(function(){
+					var vno = $(this).parents(".item").find(".vno").text();
+					var stitle = $(this).parents(".item").find(".stitle").val();
+					var mtitle = $(this).parents(".item").find(".mtitle").val();//$(this).val() 로 읽어도됨 여기만
+					var link = $(this).parents(".item").find(".link").val();//$(this).val() 로 읽어도됨 여기만
+					
+					var token = $("meta[name='_csrf']").attr("content");
+	    			var header = $("meta[name='_csrf_header']").attr("content");
+	    			
+					$.ajax({
+						beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+						url:"/common/visuals/"+vno,
+						type:"put",
+						data:{mtitle:mtitle, stitle:stitle, link:link}, //{파라미터네임:변수}
+						success: function(result){
+							if(result){
+								alert("수정완료");
+							}
+						}
+					});
+					alert("changed data");
+					
+				}); 
+				
+				$(".cb-isShow").change(function(){
+					/* alert($(this).attr("checked")); */
+					var vno=$(this).parents("tr").find(".vno").text();
+					var isShow=$(this).prop("checked");//true or false
+					
+					var token = $("meta[name='_csrf']").attr("content");
+	    			var header = $("meta[name='_csrf_header']").attr("content");
+	    			
+	    			$.ajax({
+	    				beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+						url:"/common/visuals/"+vno+"/isShow",
+						type:"put",
+						data:{"isShow" : isShow},
+						success:function(result){
+							if(result){
+								alert("수정완료");
+							}
+						}
+					});
+				});
+							
+				$(".btn-del").click(function(){
+					var r=confirm("삭제하시겠습니까?");
+					if(!r)return;//종료해라
+					var no=$(this).parents("tr").find(".vno").text();//반복문안에 있는 [[dto.vno]]는 특정값을 선택하지 못함 그래서 경유해서 선택해야함	
+					var token = $("meta[name='_csrf']").attr("content");
+	    			var header = $("meta[name='_csrf_header']").attr("content");
+					$.ajax({
+						beforeSend: function(xhr){xhr.setRequestHeader(header, token);},
+						url:"/visual/list/"+no,
+						type:"delete",//ajax는 data조건 안주고 typd에서 delete로도 바로 보낼수 있다.
+						success:function(){
+						location="/admin/visuals";
+						},error:function(){
+							alert("실패");
+						}
+					});
+						
+				});
+				
+			})
+			
+		</script>
+	</div>
+</main>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout1 :: layout(~{::head},~{::main})}">
+<head>
+	<link rel ="shortcut icon" href="/images/icon/faviconStar.png">
+	<link rel="stylesheet" href="/css/cus/faq/index.css">
+	<script type="text/javascript">
+		$(function(){
+			getFaq();
+			$(".faq-menu>li").click(getFaq);
+		});
+		
+		function getFaq(){
+			var divno=$(this).index() <0?0:$(this).index();
+			var url="/common/customer/"+divno; //url
+			$.get(
+					url,
+					function(result){
+						$("#data").html(result);
+					}//success
+			);
+		}
+	</script>
+</head>
+<main>
+	<h1>메인컨텐츠</h1>
+	<div class="wrap">
+	<section id="content">
+			<h1>메인컨텐츠</h1>
+			<div class="bar wrap vs">
+				<ul class="faq-menu flex between">
+					<li>사이트이용</li>
+					<li>회원</li>
+					<li>멤버십</li>
+					<li>온라인</li>
+					<li>혜택</li>
+					<li>관람권</li>
+					<li>스토어</li>
+					<li>스페셜관</li>
+				</ul>
+			</div>
+			<div id="data"></div>
+		</section>
+	</div>
+</main>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:insert="~{view/common/common::head}" />
+	<link
+		href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+		rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- include summernote css/js -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+		rel="stylesheet">
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".summernote").summernote();
+		});
+	</script>
+</head>
+<body>
+	<th:block th:insert="~{view/common/common::header}" />
+
+	<main>
+
+		<h1>WRITER_PAGE</h1>
+		<div>
+			<!-- form형으로 파일을 업로드설정할때 enctype="multipart/form-data" 설정 필수 -->
+			<form action="/jpaboard/write" method="post" enctype="multipart/form-data">
+				<p>
+					<input type="text" name="title" placeholder="input title">
+				</p>
+				<p>
+					<textarea class="summernote" name="content"></textarea>
+				</p>
+					<p>
+					<!-- 파일여러개 	<input type="file" name="file" multiple="multiple"> -->
+						<label id="img-disp" for="file" 
+						style="display: inline-block; width: 100px; height: 100px;
+						background-repeat:no-repeat;background-position:center; 
+						background-image: url(''); background-size: contain;
+						background-color: rgba(256,0,0,.1); border: 1px dotted rgba(6,195,251,.5);
+						text-align: center; line-height: 100px;">+</label>
+						<input type="file" name="file" id="file" style="display: none;">
+					</p>
+				<p>
+					<input type="hidden" name="newName" id="new-name">
+					<input type="hidden" name="memNo"
+						th:value="${session.logInfo.memNo}">
+					<button type="submit">done</button>
+				</p>
+			</form>
+			<script type="text/javascript">
+				//파일을 선택시 미리보기되고 bin폴더에 파일이 생성됨
+				$(function() {
+					$("#file").change(fileupload);
+				});
+				
+				function fileupload() {
+						var file=$("#file")[0].files[0];
+						var formData=new FormData();
+						formData.append("file",file);
+						formData.append("prevImgName", $("#new-name").val());
+						
+						$.ajax({
+							url: "/jpaboard/fileupload",
+							type: "post",
+							data: formData,
+							contentType: false,
+							processData: false,
+							//result가 서비스에서 리턴값을 받는다.
+							success:function(result){
+								//파일 웹경로를 문자열로 리턴받을예정
+								$("#img-disp").css("background-image","url(/fileupload/temp/"+result+")");
+								$("#new-name").val(result);
+							}
+						});
+				}
+				
+			</script>
+		</div>
+	</main>
+</body>
+</html>

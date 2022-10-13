@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout1 :: layout(~{::head},~{::main})}">
+<head>
+	<link rel ="shortcut icon" href="/images/icon/faviconStar.png">
+	<link rel="stylesheet" href="/css/index.css">
+	
+</head>
+<main>
+	<h1>메인컨텐츠</h1>
+	<div class="wrap">
+		<section id="visual">
+			<div class="ewrap" >
+				<ul class="flex between e-box grid-container">
+					<!-- for(VisualListDTO dto : list){} -->
+					<li class="eimg" th:each="dto:${elist}">
+						<a href="${dto.link}" class="eimg-bg" th:style="|background-image: url(${dto.url+dto.orgName});|">
+							<span>[[${dto.mtitle}]]</span>
+						</a>
+						<span class="eimg-text">
+							<span class="sub">[[${dto.stitle}]]</span>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+</main>
+</html>

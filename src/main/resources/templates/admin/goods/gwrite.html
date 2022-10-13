@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/layout-admin :: layout(~{::head},~{::main})}">
+<head>
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- include summernote css/js -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+		rel="stylesheet">
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script src="/js/my-summernote.js"></script>
+	<script src="/js/fileupload.js"></script>
+	
+	<link rel="stylesheet" href="/css/admin/goods/gwrite.css">
+	<script type="text/javascript">
+	$(function(){
+		$("#catarea").change(function(){
+			$.ajax({
+				url:"/admin/category/"+$(this).val(),
+				type:"get",
+				success:function(result){
+					$("#cate2").html(result);
+				}
+				
+			});
+		});
+	});
+</script>
+
+</head>
+<main>
+	<h1>상품등록페이지</h1>
+	<div class="wrap">
+		<section id="goods-reg">
+			<p>GOODS상품등록</p>
+			<div class="wrap">
+				<!-- form형으로 파일을 업로드설정할때 enctype="multipart/form-data" 설정 필수 -->
+				<form action="/admin/goods" method="post">
+					<ul>
+						<li>
+							<label>카테고리</label>
+							<select id="catarea">
+								<option>1차카테고리</option>
+								<th:block th:each="ca: ${cateA}">
+								<option th:value="${ca.code}">[[${ca.koName}]]</option>
+								</th:block>
+							</select>
+							<div id="cate2">
+								<h1>2차카테고리자리</h1>
+							</div>
+						</li>
+						<li>
+							<label>상품명</label> 
+							<input type="text" name="name" placeholder="상품명">
+						</li>
+						<li>
+							<label>가격</label> 
+							<input type="text" name="price" placeholder="가격">
+						</li>
+						<li>
+							<label>할인</label> 
+							<input type="text" name="sale">
+								<select name="isRate">
+									<option value="0">원</option>
+									<option value="1">%</option>
+								</select>
+						</li>
+						<li>
+							<label>재고</label> 
+							<input type="text" name="stock" placeholder="재고">
+						</li>
+					
+						<li>
+							<label>이미지파일</label>
+							<div>
+								<label>대표이미지</label> 
+								<input type="file" id="defImg" class="fileInput"> 
+								<label for="defImg">+</label> 
+								<input type="hidden" name="defImg">
+							</div>
+							<div>
+								<label>상품이미지</label> 
+								<input type="file" id="gImg" class="fileInput">
+								<label for="gImg">+</label>
+								<input type="hidden" name="gImg">
+							</div>
+						</li>
+						<li>
+							<label>상세페이지</label>
+							<div style="width: 600px;">
+							<textarea id="summernote" class="summernote" name="content"></textarea>
+							</div>
+						</li>
+						<li>
+							<input type="hidden" th:name="${_csrf.parameterName}" 							th:value="${_csrf.token}">
+							<button type="submit" class="gbtn">등록</button>
+						</li>
+
+					</ul>
+				</form>
+			</div>
+		</section>
+	</div>
+</main>
+</html>

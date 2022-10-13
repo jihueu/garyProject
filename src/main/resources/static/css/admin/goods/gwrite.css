@@ -1,0 +1,78 @@
+@charset "UTF-8";
+label{
+		display: block;
+		}
+select {
+ 	height:40px;
+ 	margin-top:7px;
+  font-family: inherit;  /* 폰트 상속 */
+  border: 1px solid #999; 
+
+}
+
+input[type=file]{
+	display: none;
+}
+input[type=file]+label{
+	display: block;
+	width: 100px;
+	height: 100px;
+	background-color: rgba(255, 128, 128, 0.2);
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 98px;
+	text-align: center;
+	border: 1px dotted rgba(0,0,0, 0.2);  
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	 
+}
+main>.wrap section>p {
+	color:#414141;
+	font-size: 30px;
+	margin: 20px 0 40px 10px;
+}
+main>.wrap #goods-reg .wrap form ul li:not(:nth-child(7)){
+	width: 500px;
+}
+main>.wrap #goods-reg .wrap form ul li>label:not(:nth-child(7)){
+	
+	width:150px;
+	text-align:inherit;
+	line-height:59px;
+	font-size: 18px;
+	
+}
+main>.wrap #goods-reg .wrap form ul li input:fucus{
+	outline:2px solid #c0c0c0;
+}
+main>.wrap #goods-reg .wrap form ul li input{
+	
+	width: 50%;
+	height: 40px;
+	padding: 5px 0;
+	margin-top:5px;
+	border-color: #e9e9e9;
+}
+
+main>.wrap #goods-reg .wrap form ul li:not(:nth-child(7),:last-child){
+	display: flex;
+	border-bottom: 2px solid #e9e9e9;
+	margin: 5px 0;
+}
+main>.wrap{
+	padding-left: 30px;
+}
+
+.gbtn{
+	background-color: black;
+	width:120px;
+	height:40px;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	border-radius: 10px;
+	vertical-align: middle;
+}
